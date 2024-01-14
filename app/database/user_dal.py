@@ -3,7 +3,7 @@ from typing import List
 from sqlalchemy import update, delete
 from sqlalchemy.future import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.models.user import User
+from app.database.user import User
 import uuid
 from datetime import datetime
 

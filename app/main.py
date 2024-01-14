@@ -5,7 +5,7 @@ from fastapi import FastAPI, status, HTTPException
 
 from app.database.database import engine, Base, async_session
 from app.database.user_dal import UserDAL
-from app.models.user import User
+from app.models.user_model import CreateUserModel
 
 app = FastAPI()
 
@@ -57,22 +57,13 @@ async def get_user(user_id: str):
 
 @app.post("/user/", status_code=status.HTTP_201_CREATED)
 async def create_user(
-    name: str,
-    username: str,
-    email: str,
-    password: str
+    user: CreateUserModel
 ):
-    user = User(
-        name=name,
-        username=username,
-        email=email,
-        password=password
-    )
-
+    user = user.to_user()
     async with async_session() as session:
         async with session.begin():
             user_dal = UserDAL(session)
-            exists_email = await user_dal.get_by_email(email)
+            exists_email = await user_dal.get_by_email(user.email)
             if exists_email is not None:
                 raise HTTPException(
                     status_code=status.HTTP_400_BAD_REQUEST,
@@ -94,21 +85,15 @@ async def create_user(
 )
 async def update_user(
         user_id: str,
-        name: str,
-        username: str,
-        email: str
+        user_update: CreateUserModel
 ):
     try:
         uuid.UUID(user_id)
     except ValueError:
         raise EXCEPTION_USER_NOT_FOUND
 
-    user_update = User(
-        id=user_id,
-        name=name,
-        username=username,
-        email=email
-    )
+    user_update = user_update.to_user()
+    user_update.id = user_id
 
     async with async_session() as session:
         async with session.begin():
@@ -119,9 +104,9 @@ async def update_user(
             await user_dal.update(user_update)
             return {
                 "id": user_id,
-                "name": name,
-                "username": username,
-                "email": email
+                "name": user_update.name,
+                "username": user_update.username,
+                "email": user_update.email
             }
 
 

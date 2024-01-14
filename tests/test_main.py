@@ -1,24 +1,34 @@
+import asyncio
+
+import pytest
 from fastapi.testclient import TestClient
-from main import app
+
+from app.database.database import engine, Base
+from app.main import app
 
 
 class TestMain:
 
-    TEST_DB_URL = "sqlite:///../db.sqlite"
+    def setup_class(self) -> None:
+        asyncio.run(self.init_bd(self))
+
+    @pytest.mark.asyncio
+    async def init_bd(self):
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.drop_all)
+            await conn.run_sync(Base.metadata.create_all)
 
     client = TestClient(app)
 
     user_json = {
-                "username": "testuser",
-                "email": "test@example.com",
-                "password": "testpass",
-                "full_name": "Test User"
+                "name": "testuser",
+                "username": "testusername",
+                "email": "test@test.com",
+                "password": "Test Password"
             }
 
-    # app.dependency_overrides[database.fetch_all] = []
-
     def test_health_check(self):
-        response = self.client.get("/health-check")
+        response = self.client.get("/")
         assert response.status_code == 200
         assert response.json() == {"message": "Health check"}
 

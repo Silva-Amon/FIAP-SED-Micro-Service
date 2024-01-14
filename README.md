@@ -3,7 +3,7 @@
 ## Introdução
 Esse micro serviço tem como objetivo simular a criação de um usuário.
 
-Esta sendo utilizada uma variável lista de usuários mocks, que serve para guardar os usuários criados durante o run time.
+Fizemos integração com um banco de dados mySQL, e estamos usando container docker para a execução da aplicação.
 
 ## Requisitos de sistema
 * [Python 3.9](https://www.python.org/)
@@ -20,6 +20,10 @@ pip install -r requirements.txt
 Basta executar o seguinte comando:
 ```shell
 uvicorn main:app --reload
+```
+or
+```shell
+docker-compose up --build -d
 ```
 
 ## Documentação

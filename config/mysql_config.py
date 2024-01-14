@@ -2,7 +2,7 @@ from sqlalchemy import create_engine, Column, Integer, String, MetaData, Table
 from databases import Database
 
 # Database configuration
-DATABASE_URL = "mysql+mysqlconnector://{os.environ['MYSQL_USER']}:{os.environ['MYSQL_PASSWORD']}@{os.environ['MYSQL_HOST']}/{os.environ['MYSQL_DATABASE']}"
+DATABASE_URL = "mysql+mysqlconnector://{os.environ['MYSQL_USER']}:{os.environ['MYSQL_PASSWORD']}@localhost:3306/{os.environ['MYSQL_DATABASE']}"
 database = Database(DATABASE_URL)
 
 metadata = MetaData()

@@ -2,3 +2,5 @@ fastapi==0.68.0
 uvicorn==0.15.0
 databases
 sqlalchemy==1.4.27
+pydantic[email]
+aiomysql

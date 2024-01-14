@@ -59,3 +59,6 @@ Para executar os testes, basta executar o seguinte comando (após já ter instal
 ```shell
 pytest
 ```
+
+![image](https://github.com/vifelisberto/FIAP-SED-Micro-Service/assets/16558683/aa75c411-cb8a-405a-a82b-2305da5115e0)
+

@@ -1,6 +1,9 @@
-fastapi==0.68.0
-uvicorn==0.15.0
-databases
-sqlalchemy==1.4.27
-pydantic[email]
-aiomysql
+fastapi==0.109.0
+fastapi-utils==0.2.1
+uvicorn==0.25.0
+sqlalchemy==1.4.51
+pytest==7.4.4
+requests==2.31.0
+httpx==0.26.0
+pydantic==1.10.13
+aiosqlite==0.19.0

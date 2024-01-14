@@ -81,7 +81,7 @@ async def create_user(
 
 @app.patch(
     "/user/{user_id}",
-    status_code=status.HTTP_202_ACCEPTED
+    status_code=status.HTTP_200_OK
 )
 async def update_user(
         user_id: str,
